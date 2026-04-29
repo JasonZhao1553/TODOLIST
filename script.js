@@ -27,6 +27,5 @@ deleteTaskButton.addEventListener('click', function(event){
             task.remove();
         }
     });
-
     deleteTaskField.value = '';
 })
