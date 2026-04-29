@@ -4,22 +4,20 @@
         <title>Jason's TODO List</title>
     </head>
     <form>
-        <label for="Add Task">Add Task:</label><br>
-        <input type="text" id="Add Task" name="Add Task"><br>
-        <input type="submit" value="Submit">
+        <label for="AddTaskField">Add Task:</label><br>
+        <input type="text" id="AddTaskField" name="AddTaskField"><br>
+        <input type="button" value="Submit" id="AddTaskButton">
     </form>
 
     <form>
-        <label for="Delete Task">Delete Task:</label><br>
-        <input type="text" id="Delete Task" name="Delete Task"><br>
-        <input type="submit" value="Submit">
+        <label for="DeleteTaskField">Delete Task:</label><br>
+        <input type="text" id="DeleteTaskField" name="DeleteTaskField"><br>
+        <input type="submit" value="Submit" id="DeleteTaskButton">
     </form>
 
-    <table>
-        <tr>
-            <th>Tasks</th>
-        </tr>
-    </table>
+    <h2>TODO LIST</h2>
+    <ul id="TODOLST">
+    </ul>
 
     <script src="script.js"></script>
 </html>
