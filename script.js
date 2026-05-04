@@ -6,8 +6,19 @@ const taskList = document.getElementById('TODOLST');
 
 const saveListButton = document.getElementById("SaveListButton");
 
-function getUserId(){
-    return "Jason";
+const FIXED_USER_ID = "1";
+const FIXED_USERNAME = "JASON";
+
+function getUser(){
+    return FIXED_USERNAME;
+}
+
+function getUserID(){
+    return FIXED_USER_ID;
+}
+
+function getUTCDate(){
+    return new Date().toISOString();
 }
 
 // convert to do list to JSON object 
@@ -18,8 +29,9 @@ function serialize_list(){
         tasks.push(task.textContent)
     }
     json = {
+        userID : getUserID(),
+        savedAt : getUTCDate(),
         tasks : tasks,
-        user : getUserId()
     };
     const jsonString = JSON.stringify(json);
     return jsonString;
@@ -58,3 +70,4 @@ saveListButton.addEventListener('click', async function(event){
     });
     console.log('saved', await res.json());
 })
+
