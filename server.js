@@ -19,5 +19,21 @@ http.createServer((req, res) => {
         });
         return;
     }
+
+    if (req.method === 'GET' && req.url === '/load'){
+        const files = fs.readdirSync('.')
+            .filter(f => f.startsWith('tasks-') && f.endsWith(".json"))
+            .sort();
+        res.writeHead(200, {'Content-Type' : 'application/json'});
+        if (files.length === 0){
+            res.end(JSON.stringify({tasks : []}));
+        }
+
+        else{
+            res.end(fs.readFileSync(files[files.length - 1], 'utf8'));
+        }
+        
+        return;
+    }
     res.writeHead(404); res.end();
 }).listen(3000, () => console.log('listenting on http://localhost:3000'));

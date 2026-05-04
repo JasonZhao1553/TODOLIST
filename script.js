@@ -71,3 +71,15 @@ saveListButton.addEventListener('click', async function(event){
     console.log('saved', await res.json());
 })
 
+async function load_list(){
+    const res = await fetch(`http://localhost:3000/load`);
+    const data = await res.json();
+    for (const taskText of data.tasks ?? []){
+        const li = document.createElement('li');
+        li.textContent = taskText;
+        taskList.append(li);
+    }
+}
+
+load_list();
+
