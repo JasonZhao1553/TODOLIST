@@ -21,6 +21,16 @@ function getUTCDate(){
     return new Date().toISOString();
 }
 
+async function update_list(){
+    jsonString = serialize_list();
+    const res = await fetch("http://localhost:3000/save", {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: jsonString
+    });
+    console.log('saved', await res.json());
+}
+
 // convert to do list to JSON object 
 function serialize_list(){
     tasks = [];
@@ -46,6 +56,7 @@ addTaskButton.addEventListener('click', function(event){
         taskList.appendChild(newTask);
         addTaskField.value = '';
     }
+    update_list();
 }); 
 
 deleteTaskButton.addEventListener('click', function(event){
@@ -58,17 +69,12 @@ deleteTaskButton.addEventListener('click', function(event){
         }
     });
     deleteTaskField.value = '';
+    update_list();
 })
 
 saveListButton.addEventListener('click', async function(event){
     event.preventDefault();
-    jsonString = serialize_list();
-    const res = await fetch("http://localhost:3000/save", {
-        method: 'POST',
-        headers: {'Content-Type' : 'application/json'},
-        body: jsonString
-    });
-    console.log('saved', await res.json());
+    update_list();
 })
 
 async function load_list(){
