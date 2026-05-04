@@ -72,7 +72,7 @@ saveListButton.addEventListener('click', async function(event){
 })
 
 async function load_list(){
-    const res = await fetch(`http://localhost:3000/load`);
+    const res = await fetch(`http://localhost:3000/load?userID=${getUserID()}`);
     const data = await res.json();
     for (const taskText of data.tasks ?? []){
         const li = document.createElement('li');
