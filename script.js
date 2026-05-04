@@ -4,23 +4,38 @@ const addTaskField = document.getElementById('AddTaskField');
 const deleteTaskField = document.getElementById('DeleteTaskField');
 const taskList = document.getElementById('TODOLST');
 
+const saveListButton = document.getElementById("SaveListButton");
+
+// convert to do list to JSON object 
+function serialize_list(){
+    tasks = [];
+
+    for (const task of taskList.children){
+        tasks.push(task.textContent)
+    }
+    json = {
+        tasks : tasks,
+        date : "May4",
+        user : "Jason"
+    };
+    const jsonString = JSON.stringify(json);
+    return jsonString;
+}
+
 addTaskButton.addEventListener('click', function(event){
     event.preventDefault();
     const taskValue = addTaskField.value.trim();
-
     if (taskValue !== ''){
         const newTask = document.createElement('li');
         newTask.textContent = taskValue;
         taskList.appendChild(newTask);
         addTaskField.value = '';
-        console.log(taskValue);
     }
 }); 
 
 deleteTaskButton.addEventListener('click', function(event){
     event.preventDefault();
     const taskValue = deleteTaskField.value.trim();
-
     const tasks = taskList.querySelectorAll('li');
     tasks.forEach(function(task){
         if (task.textContent == taskValue){
@@ -28,4 +43,9 @@ deleteTaskButton.addEventListener('click', function(event){
         }
     });
     deleteTaskField.value = '';
+})
+
+saveListButton.addEventListener('click', function(event){
+    event.preventDefault();
+    json = serialize_list();
 })
