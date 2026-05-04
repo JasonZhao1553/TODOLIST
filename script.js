@@ -6,6 +6,10 @@ const taskList = document.getElementById('TODOLST');
 
 const saveListButton = document.getElementById("SaveListButton");
 
+function getUserId(){
+    return "Jason";
+}
+
 // convert to do list to JSON object 
 function serialize_list(){
     tasks = [];
@@ -15,8 +19,7 @@ function serialize_list(){
     }
     json = {
         tasks : tasks,
-        date : "May4",
-        user : "Jason"
+        user : getUserId()
     };
     const jsonString = JSON.stringify(json);
     return jsonString;
@@ -45,7 +48,13 @@ deleteTaskButton.addEventListener('click', function(event){
     deleteTaskField.value = '';
 })
 
-saveListButton.addEventListener('click', function(event){
+saveListButton.addEventListener('click', async function(event){
     event.preventDefault();
-    json = serialize_list();
+    jsonString = serialize_list();
+    const res = await fetch("http://localhost:3000/save", {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: jsonString
+    });
+    console.log('saved', await res.json());
 })
