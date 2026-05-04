@@ -1,0 +1,25 @@
+{
+  "name": "tdlst",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JasonZhao1553/TODOLIST.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JasonZhao1553/TODOLIST/issues"
+  },
+  "homepage": "https://github.com/JasonZhao1553/TODOLIST#readme",
+  "dependencies": {
+    "better-sqlite3": "^12.9.0"
+  }
+}
