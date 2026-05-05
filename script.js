@@ -1,26 +1,3 @@
-const addTaskButton = document.getElementById('AddTaskButton');
-const deleteTaskButton = document.getElementById('DeleteTaskButton');
-const addTaskField = document.getElementById('AddTaskField');
-const deleteTaskField = document.getElementById('DeleteTaskField');
-const taskList = document.getElementById('TODOLST');
-
-const saveListButton = document.getElementById("SaveListButton");
-
-const FIXED_USER_ID = "1";
-const FIXED_USERNAME = "JASON";
-
-function getUser(){
-    return FIXED_USERNAME;
-}
-
-function getUserID(){
-    return FIXED_USER_ID;
-}
-
-function getUTCDate(){
-    return new Date().toISOString();
-}
-
 class Task{
     constructor({id, text, done=false, createdAt = DataTransfer.now()} = {}){
         this.id = id ?? crypto.randomUUID();
@@ -75,6 +52,29 @@ class TaskList{
     static fromJSON(obj){
         return new TaskList(obj);
     }
+}
+
+const addTaskButton = document.getElementById('AddTaskButton');
+const deleteTaskButton = document.getElementById('DeleteTaskButton');
+const addTaskField = document.getElementById('AddTaskField');
+const deleteTaskField = document.getElementById('DeleteTaskField');
+const taskList = document.getElementById('TODOLST');
+
+const saveListButton = document.getElementById("SaveListButton");
+
+const FIXED_USER_ID = "1";
+const FIXED_USERNAME = "JASON";
+
+function getUser(){
+    return FIXED_USERNAME;
+}
+
+function getUserID(){
+    return FIXED_USER_ID;
+}
+
+function getUTCDate(){
+    return new Date().toISOString();
 }
 
 
