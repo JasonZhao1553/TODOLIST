@@ -87,10 +87,47 @@ input[type="submit"]:hover {
 }
 
 #TODOLST li {
-    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 4px;
     border-bottom: 1px solid #eee;
+    transition: background-color 0.12s ease;
 }
 
 #TODOLST li:last-child {
     border-bottom: none;
+}
+
+#TODOLST li:hover {
+    background-color: #f9fafb;
+}
+
+#TODOLST li.done span {
+    color: #9aa0a6;
+    text-decoration: line-through;
+}
+
+.delete-task-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+}
+
+#TODOLST li:hover .delete-task-btn,
+.delete-task-btn:focus-visible {
+    opacity: 1;
+}
+
+.delete-task-btn:hover {
+    background-color: #fdecea;
+    color: #c0392b;
 }
