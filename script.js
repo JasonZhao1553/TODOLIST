@@ -37,6 +37,11 @@ class TaskList{
         if (idx !== -1) this.tasks.splice(idx, 1);
     }
 
+    toggleDoneById(id){
+        const task = this.findById(id);
+        if (task) task.done = !task.done;
+    }
+
     findById(id){
         return this.tasks.find(t => t.id === id);
     }
@@ -82,6 +87,11 @@ function renderTask(task) {
     li.dataset.id = task.id;
     if (task.done) li.classList.add('done');
 
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = task.done;
+    checkbox.classList.add('toggle-done');
+
     const text = document.createElement('span');
     text.textContent = task.text;
 
@@ -90,7 +100,7 @@ function renderTask(task) {
     deleteBtn.textContent = 'Del';
     deleteBtn.classList.add('delete-task-btn'); // matches your delegated handler
 
-    li.append(text, deleteBtn);
+    li.append(checkbox, text, deleteBtn);
     return li;
 }
 
@@ -127,12 +137,15 @@ taskListEl.addEventListener('click', (event) => {
     const id = li.dataset.id;
 
     if (event.target.closest('.delete-task-btn')){
-        taskList.removeById(li.dataset.id);
+        taskList.removeById(id);
         render();
         update_list();
     }
-
-    // TODO implement toggle done
+    else if (event.target.closest('.toggle-done')){
+        taskList.toggleDoneById(id);
+        li.classList.toggle('done');
+        update_list();
+    }
 })
 
 async function load_list(){

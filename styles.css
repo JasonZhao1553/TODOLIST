@@ -104,9 +104,19 @@ input[type="submit"]:hover {
     background-color: #f9fafb;
 }
 
-#TODOLST li.done span {
+#TODOLST li > span {
+    flex: 1;                     /* push the delete button to the far right */
+}
+
+#TODOLST li.done > span {
     color: #9aa0a6;
     text-decoration: line-through;
+}
+
+.toggle-done {
+    cursor: pointer;
+    accent-color: #4a90e2;
+    margin: 0;
 }
 
 .delete-task-btn {
