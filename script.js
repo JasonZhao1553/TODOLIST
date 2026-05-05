@@ -120,6 +120,20 @@ addTaskButton.addEventListener('click', function(event){
     }
 }); 
 
+taskListEl.addEventListener('click', (event) => {
+    const li = event.target.closest('li');
+    if (!li) return;
+    const id = li.dataset.id;
+
+    if (event.target.closest('.delete-task-btn')){
+        taskList.removeById(li.dataset.id);
+        render();
+        update_list();
+    }
+
+    // TODO implement toggle done
+})
+
 async function load_list(){
     const res = await fetch(`http://localhost:3000/load?userID=${getUserID()}`);
     const data = await res.json();
