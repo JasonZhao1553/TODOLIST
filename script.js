@@ -21,6 +21,32 @@ function getUTCDate(){
     return new Date().toISOString();
 }
 
+class Task{
+    constructor({id, text, done=false, createdAt = DataTransfer.now()} = {}){
+        this.id = id ?? crypto.randomUUID();
+        this.text = text;
+        this.done = done;
+        this.createdAt = createdAt;
+    }
+
+    toJSON(){
+        return {
+            id : this.id,
+            text : this.text,
+            done : this.done,
+            createdAt : this.createdAt,
+        };
+    }
+
+    static fromJSON(obj){
+        return newTask(obj);
+    }
+}
+
+class TaskList{
+    
+}
+
 async function update_list(){
     jsonString = serialize_list();
     const res = await fetch("http://localhost:3000/save", {
