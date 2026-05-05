@@ -110,22 +110,6 @@ async function update_list(){
     console.log('saved', await res.json());
 }
 
-// convert to do list to JSON object 
-function serialize_list(){
-    tasks = [];
-
-    for (const task of taskListEl.children){
-        tasks.push(task.textContent)
-    }
-    json = {
-        userID : getUserID(),
-        savedAt : getUTCDate(),
-        tasks : tasks,
-    };
-    const jsonString = JSON.stringify(json);
-    return jsonString;
-}
-
 addTaskButton.addEventListener('click', function(event){
     event.preventDefault();
     const taskValue = addTaskField.value.trim();
