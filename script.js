@@ -56,12 +56,14 @@ class TaskList{
 
 const addTaskButton = document.getElementById('AddTaskButton');
 const addTaskField = document.getElementById('AddTaskField');
-const taskList = document.getElementById('TODOLST');
+const taskListEl = document.getElementById('TODOLST');
 
 const saveListButton = document.getElementById("SaveListButton");
 
 const FIXED_USER_ID = "1";
 const FIXED_USERNAME = "JASON";
+
+let taskList = new TaskList();
 
 function getUser(){
     return FIXED_USERNAME;
@@ -73,6 +75,27 @@ function getUserID(){
 
 function getUTCDate(){
     return new Date().toISOString();
+}
+
+function renderTask(task) {
+    const li = document.createElement('li');
+    li.dataset.id = task.id;
+    if (task.done) li.classList.add('done');
+
+    const text = document.createElement('span');
+    text.textContent = task.text;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.type = 'button';                  // don't submit any enclosing form
+    deleteBtn.textContent = 'Del';
+    deleteBtn.classList.add('delete-task-btn'); // matches your delegated handler
+
+    li.append(text, deleteBtn);
+    return li;
+}
+
+function render(){
+    taskListEl.replaceChildren(...taskList.tasks.map(t => renderTask(t)));
 }
 
 async function update_list(){
@@ -89,7 +112,7 @@ async function update_list(){
 function serialize_list(){
     tasks = [];
 
-    for (const task of taskList.children){
+    for (const task of taskListEl.children){
         tasks.push(task.textContent)
     }
     json = {
@@ -105,18 +128,11 @@ addTaskButton.addEventListener('click', function(event){
     event.preventDefault();
     const taskValue = addTaskField.value.trim();
     if (taskValue !== ''){
-        const newTask = document.createElement('li');
-        newTask.textContent = taskValue;
-        taskList.appendChild(newTask);
-        addTaskField.value = '';
+        let newTask = taskList.add(taskValue); // Task object
+        render();
+        update_list();
     }
-    update_list();
 }); 
-
-saveListButton.addEventListener('click', async function(event){
-    event.preventDefault();
-    update_list();
-})
 
 async function load_list(){
     const res = await fetch(`http://localhost:3000/load?userID=${getUserID()}`);
@@ -124,7 +140,7 @@ async function load_list(){
     for (const taskText of data.tasks ?? []){
         const li = document.createElement('li');
         li.textContent = taskText;
-        taskList.append(li);
+        taskListEl.append(li);
     }
 }
 
