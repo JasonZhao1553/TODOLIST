@@ -16,7 +16,7 @@ class Task{
     }
 
     static fromJSON(obj){
-        return newTask(obj);
+        return new Task(obj);
     }
 }
 
@@ -63,7 +63,7 @@ const saveListButton = document.getElementById("SaveListButton");
 const FIXED_USER_ID = "1";
 const FIXED_USERNAME = "JASON";
 
-let taskList = new TaskList();
+let taskList = new TaskList({userID : getUserID()});
 
 function getUser(){
     return FIXED_USERNAME;
@@ -99,7 +99,9 @@ function render(){
 }
 
 async function update_list(){
-    jsonString = serialize_list();
+    jsonString = taskList.toJSON();
+    jsonString = JSON.stringify(jsonString);
+    console.log(jsonString);
     const res = await fetch("http://localhost:3000/save", {
         method: 'POST',
         headers: {'Content-Type' : 'application/json'},
@@ -137,11 +139,8 @@ addTaskButton.addEventListener('click', function(event){
 async function load_list(){
     const res = await fetch(`http://localhost:3000/load?userID=${getUserID()}`);
     const data = await res.json();
-    for (const taskText of data.tasks ?? []){
-        const li = document.createElement('li');
-        li.textContent = taskText;
-        taskListEl.append(li);
-    }
+    taskList = TaskList.fromJSON({userID : getUserID(), tasks : data.tasks ?? []});
+    render();
 }
 
 load_list();
