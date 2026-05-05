@@ -55,9 +55,7 @@ class TaskList{
 }
 
 const addTaskButton = document.getElementById('AddTaskButton');
-const deleteTaskButton = document.getElementById('DeleteTaskButton');
 const addTaskField = document.getElementById('AddTaskField');
-const deleteTaskField = document.getElementById('DeleteTaskField');
 const taskList = document.getElementById('TODOLST');
 
 const saveListButton = document.getElementById("SaveListButton");
