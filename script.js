@@ -44,8 +44,39 @@ class Task{
 }
 
 class TaskList{
-    
+    constructor({userID, tasks=[]} = {}) {
+        this.userID = userID;
+        this.tasks = tasks.map(t => t instanceof Task ? t : Task.fromJSON(t));
+    }
+
+    add(text){
+        const task = new Task({text});
+        this.tasks.push(task);
+        return task;
+    }
+
+    removeById(id){
+        const idx = this.tasks.findIndex(t => t.id === id);
+        if (idx !== -1) this.tasks.splice(idx, 1);
+    }
+
+    findById(id){
+        return this.tasks.find(t => t.id === id);
+    }
+
+    toJSON(){
+        return{
+            userID: this.userID,
+            savedAt : new Date().toISOString(),
+            tasks : this.tasks
+        };
+    }
+
+    static fromJSON(obj){
+        return new TaskList(obj);
+    }
 }
+
 
 async function update_list(){
     jsonString = serialize_list();
