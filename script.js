@@ -118,7 +118,8 @@ addTaskButton.addEventListener('click', function(event){
         render();
         update_list();
     }
-}); 
+    addTaskField.value = '';
+});
 
 taskListEl.addEventListener('click', (event) => {
     const li = event.target.closest('li');
