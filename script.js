@@ -1,5 +1,5 @@
 class Task{
-    constructor({id, text, done=false, createdAt = DataTransfer.now()} = {}){
+    constructor({id, text, done=false, createdAt = Date.now()} = {}){
         this.id = id ?? crypto.randomUUID();
         this.text = text;
         this.done = done;
