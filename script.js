@@ -77,7 +77,6 @@ function getUTCDate(){
     return new Date().toISOString();
 }
 
-
 async function update_list(){
     jsonString = serialize_list();
     const res = await fetch("http://localhost:3000/save", {
@@ -115,19 +114,6 @@ addTaskButton.addEventListener('click', function(event){
     }
     update_list();
 }); 
-
-deleteTaskButton.addEventListener('click', function(event){
-    event.preventDefault();
-    const taskValue = deleteTaskField.value.trim();
-    const tasks = taskList.querySelectorAll('li');
-    tasks.forEach(function(task){
-        if (task.textContent == taskValue){
-            task.remove();
-        }
-    });
-    deleteTaskField.value = '';
-    update_list();
-})
 
 saveListButton.addEventListener('click', async function(event){
     event.preventDefault();
