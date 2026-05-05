@@ -155,5 +155,17 @@ async function load_list(){
     render();
 }
 
+function renderGreeting(){
+    const greetingText = document.getElementById('GreetingText');
+    const greetingDate = document.getElementById('GreetingDate');
+    if (greetingText) greetingText.textContent = `Hello ${getUser()}`;
+    if (greetingDate) {
+        greetingDate.textContent = new Date().toLocaleDateString(undefined, {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+    }
+}
+
+renderGreeting();
 load_list();
 
